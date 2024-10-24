@@ -6,20 +6,18 @@ function App() {
 
     const checkServerStatus = async () => {
         try {
-            const response = await fetch('http://localhost:5000/status');
-            const data = await response.json()
+            const response = await fetch('http://localhost:5002/status');
             if (response.ok) {
+                const data = await response.json();
                 setStatus(data.status);
                 setMessage(data.message);
+            } else {
+                setStatus('Error');
+                setMessage('No response');
             }
-            else {
-                setStatus(data.status);
-                setMessage(data.message);
-            }
-        }
-        catch (error) {
-            setStatus(status);
-            setMessage(message);
+        } catch (error) {
+            setStatus('Error');
+            setMessage('Connection failed ' + error.message);
         }
     };
 
